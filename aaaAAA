@@ -1,0 +1,42 @@
+batch_size = 32
+img_height = 180
+img_width = 180
+
+train_ds = tf.keras.utils.image_dataset_from_directory(
+  data_dir,
+  validation_split=0.2,
+  subset="training",
+  seed=123,
+  image_size=(img_height, img_width),
+  batch_size=3500,
+  color_mode='grayscale'
+  )
+
+
+val_ds = tf.keras.utils.image_dataset_from_directory(
+  data_dir,
+  validation_split=0.2,
+  subset="validation",
+  seed=123,
+  image_size=(img_height, img_width),
+  batch_size=170,
+  color_mode='grayscale'
+  )
+
+for image_batch, labels_batch in train_ds:
+  x_train = image_batch.numpy()
+
+for image_batch, labels_batch in val_ds:
+  x_test = image_batch.numpy()
+
+
+x_train = x_train.astype('float32')
+x_test = x_test.astype('float32')
+
+
+print (x_train.shape)
+print (x_test.shape)
+
+
+class_names = train_ds.class_names
+print(class_names)
